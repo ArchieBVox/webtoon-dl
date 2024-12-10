@@ -17,7 +17,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/anaskhan96/soup"
+	"github.com/ByteSizedMarius/soup"
 	"github.com/signintech/gopdf"
 )
 
