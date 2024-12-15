@@ -435,15 +435,17 @@ func main() {
 		var lowercaseImgLink string
 		for idx, imgLink := range episodeBatch.imgLinks {
 			lowercaseImgLink = strings.ToLower(imgLink)
-			if strings.Contains(lowercaseImgLink, ".gif") {
-				fmt.Println(fmt.Sprintf("WARNING: skipping gif %s", imgLink))
-				continue
-			}
 
+			fileFormat := "jpg"
 			if strings.Contains(lowercaseImgLink, ".png") {
-				err = comicFile.addImage(fetchImage(imgLink), "png")
-			} else {
-				err = comicFile.addImage(fetchImage(imgLink), "jpg")
+				fileFormat = "png"
+			} else if strings.Contains(lowercaseImgLink, ".gif") {
+				fileFormat = "gif"
+			}
+			err = comicFile.addImage(fetchImage(imgLink), fileFormat)
+			if err != nil {
+				fmt.Println(err.Error())
+				os.Exit(1)
 			}
 
 			if err != nil {
